@@ -1,4 +1,4 @@
-module Latch3_2
+module Latch2_2
 (
 input wire in1,
 input wire in2,
