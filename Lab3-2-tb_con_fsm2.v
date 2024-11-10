@@ -4,7 +4,7 @@ input wire sys_clk,
 input wire sys_rst_n, 
 input wire pi_money_half, 
 input wire pi_money_one,
-input wire pi_refund, // New input for refund request
+input wire pi_refund, 
     
 output reg po_cola,
 output reg po_money
@@ -15,10 +15,10 @@ parameter HALF     = 4'b0010;
 parameter ONE      = 4'b0100;
 parameter ONE_HALF = 4'b1000;
 
-wire [1:0] pi_money;
+wire[1:0] pi_money;
 reg [4:0] state;
 
-assign pi_money = {pi_money_one, pi_money_half};
+assign pi_money = {pi_money_one,pi_money_half};
 
 // State machine for transitions
 always @(posedge sys_clk or negedge sys_rst_n) begin
@@ -37,7 +37,7 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
                   else if (pi_money == 2'b10)
                       state <= ONE_HALF;
                   else if (pi_refund)
-                      state <= IDLE; // Handle refund in HALF state
+                      state <= IDLE; 
                   else
                       state <= HALF;
             ONE: if (pi_money == 2'b01) 
@@ -45,13 +45,13 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
                  else if (pi_money == 2'b10)
                      state <= IDLE;
                  else if (pi_refund)
-                     state <= IDLE; // Handle refund in ONE state
+                     state <= IDLE; 
                  else
                      state <= ONE;
             ONE_HALF: if ((pi_money == 2'b01) || (pi_money == 2'b10))
                           state <= IDLE;
                       else if (pi_refund)
-                          state <= IDLE; // Handle refund in ONE_HALF state
+                          state <= IDLE; 
                       else
                           state <= ONE_HALF;
             default: state <= IDLE;
@@ -76,9 +76,9 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
         po_money <= 1'b0;
     else if (pi_refund) begin
         case (state)
-            HALF: po_money <= 1'b1;  // Return half amount if in HALF state
-            ONE: po_money <= 1'b1;   // Return full amount if in ONE state
-            ONE_HALF: po_money <= 1'b1;  // Return full amount if in ONE_HALF state
+            HALF: po_money <= 1'b1;  
+            ONE: po_money <= 1'b1;   
+            ONE_HALF: po_money <= 1'b1; 
             default: po_money <= 1'b0;
         endcase
     end else if (state == ONE_HALF && pi_money == 2'b10) 
