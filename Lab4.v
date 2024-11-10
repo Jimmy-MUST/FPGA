@@ -1,13 +1,13 @@
 module con_fsm
 (
-    input wire sys_clk, 
-    input wire sys_rst_n, 
-    input wire pi_money_half, 
-    input wire pi_money_one,
-    input wire pi_refund, // New input for refund request
+input wire sys_clk, 
+input wire sys_rst_n, 
+input wire pi_money_half, 
+input wire pi_money_one,
+input wire pi_refund, // New input for refund request
     
-    output reg po_cola,
-    output reg po_money
+output reg po_cola,
+output reg po_money
 );
 
 parameter IDLE     = 4'b0001;
