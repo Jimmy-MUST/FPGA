@@ -1,15 +1,14 @@
-module con_fsm
+module con_fsm2
 (
- input wire sys_clk, 
- input wire sys_rst_n, 
- input wire pi_money_half , 
- input wire pi_money_one ,
+input wire sys_clk, 
+input wire sys_rst_n, 
+input wire pi_money_half , 
+input wire pi_money_one ,
  
- output reg po_cola ,
- output reg po_money
+output reg po_cola ,
+output reg po_money
                  
 );
-
 
 parameter IDLE     = 4'b0001;
 parameter HALF     = 4'b0010;
